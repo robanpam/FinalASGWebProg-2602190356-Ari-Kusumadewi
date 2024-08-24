@@ -37,14 +37,28 @@
             <!-- Search Form -->
             <form method="GET" action="{{ route('user.index') }}" class="mb-4">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-6">
                         <input type="text" name="search" class="form-control" placeholder="Search by name"
                             value="{{ request('search') }}">
                     </div>
-                    <div class="col-md-4">
-                        <button type="submit" class="btn btn-primary w-100">Search</button>
+                    <div class="col-md-3">
+                        <select name="gender" class="form-select">
+                            <option value="">Select Gender</option>
+                            <option value="male" {{ request('gender') == 'male' ? 'selected' : '' }}>Male</option>
+                            <option value="female" {{ request('gender') == 'female' ? 'selected' : '' }}>Female</option>
+                            <option value="other" {{ request('gender') == 'other' ? 'selected' : '' }}>Other</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select name="hobby" class="form-select">
+                            <option value="">Select Hobby/Field</option>
+                            @foreach($fields as $field)
+                                <option value="{{ $field }}" {{ request('hobby') == $field ? 'selected' : '' }}>{{ $field }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
+                <button type="submit" class="btn btn-primary w-100 mt-3">Search</button>
             </form>
 
             @foreach ($dataUser as $user)
