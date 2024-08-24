@@ -16,12 +16,14 @@
                             class="card-img-top img-fluid" style="object-fit: cover; height: 250px;">
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title">{{ $user->name }}</h5>
-                            <p class="card-text">{{ $user->fields_of_work }}</p>
+                            <p class="card-text">{{ $user->hobbies }}</p>
                             <form method="POST" action="{{ route('friend.store') }}" class="mb-2">
                                 @csrf
                                 <input type="hidden" name="request_id" value="{{ $user->request_id }}">
                                 <input type="hidden" name="friend_id" value="{{ $user->id }}">
-                                <button type="submit" class="btn btn-primary w-100">Accept</button>
+                                <button type="submit" class="btn btn-primary w-100">
+                                    Accept Friend <i class="bi bi-hand-thumbs-up"></i>
+                                </button>
                             </form>
                             <form method="POST" action="{{ route('friend-request.destroy', $user->request_id) }}">
                                 @method('delete')
@@ -35,3 +37,5 @@
         </div>
     </div>
 @endsection
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">

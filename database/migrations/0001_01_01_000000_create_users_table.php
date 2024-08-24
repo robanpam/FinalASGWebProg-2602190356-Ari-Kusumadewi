@@ -18,8 +18,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('gender', ['Male', 'Female']);
-            $table->string('fields_of_work')->nullable();
-            $table->string('linkedin_username')->nullable();
+            $table->string('hobbies')->nullable();
+            $table->string('instagram_username')->nullable();
             $table->string('mobile_number');
             $table->integer('coins')->default(100);
             $table->string('profile_path')->nullable();
@@ -34,7 +34,7 @@ return new class extends Migration
 
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
+            $table->foreignId('user_id')->nullable()->index()->onDelete('cascade');
             $table->string('ip_address', 45)->nullable();
             $table->text('user_agent')->nullable();
             $table->longText('payload');

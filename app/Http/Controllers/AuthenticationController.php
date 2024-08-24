@@ -17,12 +17,12 @@ class AuthenticationController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'gender' => 'required',
-            'linkedin_username' => 'required',
-            'fields_of_work' => 'required|array|min:3',
+            'instagram_username' => 'required',
+            'hobbies' => 'required|array|min:3',
             'mobile_number' => 'required',
         ]);
 
-        $works = implode(',', (array) $request->input('fields_of_work'));
+        $hobby = implode(',', (array) $request->input('hobbies'));
 
         // Create a new user
         $user = User::create([
@@ -30,8 +30,8 @@ class AuthenticationController extends Controller
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
             'gender' => $validatedData['gender'],
-            'linkedin_username' => $validatedData['linkedin_username'],
-            'fields_of_work' => $works,
+            'instagram_username' => $validatedData['instagram_username'],
+            'hobbies' => $hobby,
             'mobile_number' => $validatedData['mobile_number'],
             'register_price' => rand(100000,125000),
         ]);
@@ -54,7 +54,6 @@ class AuthenticationController extends Controller
             Auth::login($user);
 
             return redirect()->route('user.index');
-            // return redirect('/');
         }
 
         // If login fails, redirect back with an error message

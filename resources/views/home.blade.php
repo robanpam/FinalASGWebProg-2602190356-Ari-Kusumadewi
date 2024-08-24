@@ -17,7 +17,7 @@
                         {{ $notification->data['message'] }}
                         <a href="{{ route('notifications.destroy', $notification->id) }}" class="btn btn-danger btn-sm ms-2"
                             onclick="event.preventDefault(); document.getElementById('delete-form-{{ $notification->id }}').submit();">
-                            <i class="icon-close"></i>
+                            <i class="bi bi-x"></i>
                         </a>
 
                         <form id="delete-form-{{ $notification->id }}"
@@ -54,11 +54,13 @@
                             class="card-img-top img-fluid" style="object-fit: cover; height: 250px;">
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title">{{ $user->name }}</h5>
-                            <p class="card-text">{{ $user->fields_of_work }}</p>
+                            <p class="card-text">{{ $user->hobbies }}</p>
                             <form method="POST" action="{{ route('friend-request.store') }}" class="mt-auto">
                                 @csrf
                                 <input type="hidden" name="receiver_id" value="{{ $user->id }}">
-                                <button type="submit" class="btn btn-primary w-100">Send Request</button>
+                                <button type="submit" class="btn btn-primary w-100">
+                                    Add Friend <i class="bi bi-hand-thumbs-up"></i>
+                                </button>
                             </form>
                         </div>
                     </div>
@@ -67,3 +69,5 @@
         </div>
     </div>
 @endsection
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">

@@ -16,8 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
         // User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
@@ -30,7 +28,9 @@ class DatabaseSeeder extends Seeder
                 'email' => $faker->email(),
                 'password' => Hash::make('123456789'),
                 'gender' => $faker->randomElement($array = ['Male', 'Female']),
-                'fields_of_work' => $faker->jobTitle(),
+                'hobbies' => implode(', ', $faker->randomElements([
+                'Reading', 'Writing', 'Traveling', 'Sports', 'Music', 'Cooking',
+                'Gaming', 'Photography', 'Art', 'Fitness'], $faker->numberBetween(1, 3))),
                 'mobile_number' => $faker->phoneNumber(),
                 'has_paid' => 1,
                 'register_price' => rand(100000, 125000),
@@ -39,16 +39,30 @@ class DatabaseSeeder extends Seeder
         }
 
         for ($i = 0; $i < 20; $i++) {
+            $sender_id = $faker->numberBetween(1, 20);
+            $receiver_id = $faker->numberBetween(1, 20);
+
+            while ($sender_id === $receiver_id) {
+                $receiver_id = $faker->numberBetween(1, 20);
+            }
+
             DB::table('friend_requests')->insert([
-                'sender_id' => $faker->numberBetween(1, 20),
-                'receiver_id' => $faker->numberBetween(1, 20)
+                'sender_id' => $sender_id,
+                'receiver_id' => $receiver_id
             ]);
         }
 
         for ($i = 0; $i < 20; $i++) {
+            $user_id = $faker->numberBetween(1, 20);
+            $friend_id = $faker->numberBetween(1, 20);
+
+            while ($user_id === $friend_id) {
+                $friend_id = $faker->numberBetween(1, 20);
+            }
+
             DB::table('friends')->insert([
-                'user_id' => $faker->numberBetween(1, 20),
-                'friend_id' => $faker->numberBetween(1, 20)
+                'user_id' => $user_id,
+                'friend_id' => $friend_id
             ]);
         }
     }
